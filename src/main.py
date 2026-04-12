@@ -1,0 +1,41 @@
+import typer
+from rich import print
+
+app = typer.Typer(
+    name="pyre",
+    help="The missing scaffolder for modern Python. Set your projects ablaze.",
+    add_completion=False,
+    rich_markup_mode=None,
+)
+
+
+@app.command()
+def new(name: str = typer.Argument(..., help="Project name")):
+    """Scaffold a new Pyre project."""
+    print(f"[bold red] pyre[/bold red] - creating [cyan]{name}[/cyan]")
+
+
+@app.command()
+def run():
+    """Run the project."""
+    print("[bold red] pyre[/bold red] - running project")
+
+
+@app.command()
+def check():
+    """Run mypy and ruff."""
+    print("[bold red] pyre[/bold red] - checking project")
+
+
+@app.command()
+def add(package: str = typer.Argument(..., help="Package to add")):
+    """Add a dependency."""
+    print(f"[bold red] pyre[/bold red] - adding [cyan]{package}[/cyan]")
+
+
+def main():
+    app()
+
+
+if __name__ == "__main__":
+    main()
