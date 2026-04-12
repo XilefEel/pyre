@@ -1,7 +1,7 @@
-from result import Err, Ok, Result
+from result import Err, Ok
 
 from errors import AppError, find_user
-from models import Config, User
+from models import Config
 
 
 def main() -> None:

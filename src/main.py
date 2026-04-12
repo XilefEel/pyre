@@ -1,6 +1,7 @@
 import typer
 from rich import print
 
+from src.commands.check import check_project
 from src.commands.new import create_project
 from src.commands.run import run_project
 
@@ -27,7 +28,7 @@ def run():
 @app.command()
 def check():
     """Run mypy and ruff."""
-    print("[bold red] pyre[/bold red] - checking project")
+    check_project()
 
 
 @app.command()
