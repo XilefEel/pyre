@@ -1,0 +1,27 @@
+[project]
+name = "{project_name}"
+version = "0.1.0"
+description = ""
+requires-python = ">=3.14"
+dependencies = [
+    "result>=0.17.0",
+    "pydantic>=2.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.mypy]
+strict = true
+python_version = "3.14"
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

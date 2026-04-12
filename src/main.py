@@ -1,6 +1,8 @@
 import typer
 from rich import print
 
+from src.commands.new import create_project
+
 app = typer.Typer(
     name="pyre",
     help="The missing scaffolder for modern Python. Set your projects ablaze.",
@@ -13,6 +15,7 @@ app = typer.Typer(
 def new(name: str = typer.Argument(..., help="Project name")):
     """Scaffold a new Pyre project."""
     print(f"[bold red] pyre[/bold red] - creating [cyan]{name}[/cyan]")
+    create_project(name)
 
 
 @app.command()
