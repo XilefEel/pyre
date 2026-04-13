@@ -7,13 +7,18 @@ console = Console()
 
 
 def run_project() -> None:
-    main_path = Path.cwd() / "src" / "main.py"
+    run_py = Path.cwd() / "run.py"
+    main_py = Path.cwd() / "src" / "main.py"
 
-    if not main_path.exists():
+    if run_py.exists():
+        console.print("  [green]✓[/green] Running [#ff8c00]run.py[/#ff8c00]\n")
+        subprocess.run(["uv", "run", "python", "run.py"])
+
+    elif main_py.exists():
+        console.print("  [green]✓[/green] Running [#ff8c00]src/main.py[/#ff8c00]\n")
+        subprocess.run(["uv", "run", "python", "src/main.py"])
+
+    else:
         console.print(
-            "  [red]✗[/red] No src/main.py found. Are you inside a pyre project?"
+            "  [red]✗[/red] No run.py or src/main.py found. Are you inside a pyre project?"
         )
-        return
-
-    console.print("  [green]✓[/green] Running [cyan]src/main.py[/cyan]\n")
-    subprocess.run(["uv", "run", "python", "src/main.py"])

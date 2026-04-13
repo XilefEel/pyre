@@ -87,8 +87,5 @@ def create_project(name: str) -> None:
 
     console.print("  [dim]Get started:[/dim]")
     console.print(f"    [#ff8c00]cd {name}[/#ff8c00]")
-    console.print("    [#ff8c00]uv sync[/#ff8c00]")
-    if template_name == "fastapi":
-        console.print("    [#ff8c00]uv run python run.py[/#ff8c00]")
-    else:
-        console.print("    [#ff8c00]uv run python src/main.py[/#ff8c00]")
+    console.print("    [#ff8c00]pyre install[/#ff8c00]")
+    console.print("    [#ff8c00]pyre run[/#ff8c00]")

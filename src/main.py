@@ -3,6 +3,7 @@ from rich.console import Console
 
 from src.commands.add import add_package
 from src.commands.check import check_project
+from src.commands.install import install_packages
 from src.commands.new import create_project
 from src.commands.run import run_project
 
@@ -21,6 +22,12 @@ def new(name: str = typer.Argument(..., help="Project name")):
     """Scaffold a new Pyre project."""
     console.print("\n  [bold #ff4500]pyre[/bold #ff4500] [#888888]v0.1.0[/#888888]\n")
     create_project(name)
+
+
+@app.command()
+def install():
+    """Install project dependencies."""
+    install_packages()
 
 
 @app.command()
