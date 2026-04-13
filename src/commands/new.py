@@ -11,7 +11,7 @@ from rich.console import Console
 console = Console()
 
 TEMPLATES_DIR = Path(__file__).parent.parent.parent / "templates"
-TEMPLATES = ["default", "minimal", "example", "cli"]
+TEMPLATES = ["default", "minimal", "fastapi", "numpy", "pytorch", "scraper"]
 
 pyre_style = Style(
     [
