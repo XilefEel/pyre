@@ -1,6 +1,6 @@
 import typer
-from rich import print
 
+from src.commands.add import add_package
 from src.commands.check import check_project
 from src.commands.new import create_project
 from src.commands.run import run_project
@@ -34,7 +34,7 @@ def check():
 @app.command()
 def add(package: str = typer.Argument(..., help="Package to add")):
     """Add a dependency."""
-    print(f"[bold red] pyre[/bold red] - adding [cyan]{package}[/cyan]")
+    add_package(package)
 
 
 def main():
