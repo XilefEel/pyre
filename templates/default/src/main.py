@@ -5,7 +5,7 @@ from models import Config
 
 
 def main() -> None:
-    print("Hello from my_project!")
+    print("Hello from {project_name}!\n")
 
     match find_user(42):
         case Ok(user):
