@@ -5,11 +5,11 @@ import pandas as pd
 from result import Err, Ok
 
 from analysis import get_column_stats, get_dataset_info, normalize
-from data import save_csv
+from files import save_csv
 
 
 def main() -> None:
-    print("Hello from {project_name}!\n")
+    print("Hello from num!\n")
 
     df = pd.DataFrame(
         {
@@ -24,12 +24,15 @@ def main() -> None:
     print(f"Missing values: {info.missing_values}")
     print(f"Numeric columns: {info.numeric_columns}")
 
-    stats = get_column_stats(df, "score")
-    print("\nScore stats:")
-    print(f"  Mean: {stats.mean:.2f}")
-    print(f"  Std:  {stats.std:.2f}")
-    print(f"  Min:  {stats.min:.2f}")
-    print(f"  Max:  {stats.max:.2f}")
+    match get_column_stats(df, "score"):
+        case Ok(stats):
+            print("\nScore stats:")
+            print(f"  Mean: {stats.mean:.2f}")
+            print(f"  Std:  {stats.std:.2f}")
+            print(f"  Min:  {stats.min:.2f}")
+            print(f"  Max:  {stats.max:.2f}")
+        case Err(e):
+            print(f"\nFailed to get stats: {e}")
 
     scores = np.array(df["score"].values, dtype=np.float64)
     normalized = normalize(scores)

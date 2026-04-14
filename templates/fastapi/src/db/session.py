@@ -4,7 +4,7 @@ from sqlmodel import Session, SQLModel, create_engine
 
 DATABASE_URL = "sqlite:///database.db"
 
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=True)  # set echo=False in production
 
 
 def create_tables() -> None:

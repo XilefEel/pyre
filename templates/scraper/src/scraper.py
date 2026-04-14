@@ -6,7 +6,7 @@ from models import ScrapedLink, ScrapedPage
 
 
 def get_client() -> httpx.Client:
-    return httpx.Client(timeout=10, verify=False)
+    return httpx.Client(timeout=10, verify=False)  # set verify=True in production
 
 
 def fetch_page(url: str) -> Result[ScrapedPage, str]:

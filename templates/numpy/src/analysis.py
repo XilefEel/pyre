@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from result import Err, Ok, Result
 
 from models import ColumnStats, DatasetInfo
 
@@ -17,15 +18,26 @@ def get_dataset_info(df: pd.DataFrame) -> DatasetInfo:
     )
 
 
-def get_column_stats(df: pd.DataFrame, column: str) -> ColumnStats:
+def get_column_stats(df: pd.DataFrame, column: str) -> Result[ColumnStats, str]:
+    if column not in df.columns:
+        return Err(f"Column '{column}' not found.")
+
     series = df[column].dropna()
 
-    return ColumnStats(
-        name=column,
-        mean=float(series.mean()),
-        std=float(series.std()),
-        min=float(series.min()),
-        max=float(series.max()),
+    if not pd.api.types.is_numeric_dtype(series):
+        return Err(f"Column '{column}' is not numeric.")
+
+    if series.empty:
+        return Err(f"Column '{column}' is empty or contains only missing values.")
+
+    return Ok(
+        ColumnStats(
+            name=column,
+            mean=float(series.mean()),
+            std=float(series.std()),
+            min=float(series.min()),
+            max=float(series.max()),
+        )
     )
 
 
@@ -34,6 +46,7 @@ def normalize(array: np.ndarray) -> np.ndarray:
     max_val = float(array.max())
     if max_val == min_val:
         return np.zeros_like(array, dtype=np.float64)
+
     return (array - min_val) / (max_val - min_val)
 
 

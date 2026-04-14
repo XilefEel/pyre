@@ -1,4 +1,5 @@
 from result import Err, Ok
+
 from scraper import fetch_links, fetch_page
 
 

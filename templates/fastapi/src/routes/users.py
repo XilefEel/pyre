@@ -15,11 +15,11 @@ def list_users(session: Session = Depends(get_session)) -> list[User]:
     return list(users)
 
 
-@router.post("/", response_model=UserResponse)
+@router.post("/", response_model=UserResponse, status_code=201)
 def create_user(user: UserCreate, session: Session = Depends(get_session)) -> User:
     existing = session.exec(select(User).where(User.email == user.email)).first()
     if existing:
-        raise HTTPException(status_code=400, detail=AppError.ALREADY_EXISTS)
+        raise HTTPException(status_code=409, detail=AppError.ALREADY_EXISTS)
 
     db_user = User(name=user.name, email=user.email)
     session.add(db_user)
