@@ -16,7 +16,11 @@ def fetch_page(url: str) -> Result[ScrapedPage, str]:
             response.raise_for_status()
 
             soup = BeautifulSoup(response.text, "html.parser")
-            title = soup.title.string if soup.title else "No title"
+            title = (
+                str(soup.title.string)
+                if soup.title and soup.title.string
+                else "No title"
+            )
             body = soup.get_text(separator=" ", strip=True)
 
             return Ok(ScrapedPage(url=url, title=title, body=body))
@@ -36,7 +40,7 @@ def fetch_links(url: str) -> Result[list[ScrapedLink], str]:
 
             soup = BeautifulSoup(response.text, "html.parser")
             links = [
-                ScrapedLink(text=a.get_text(strip=True), href=a["href"])
+                ScrapedLink(text=a.get_text(strip=True), href=str(a["href"]))
                 for a in soup.find_all("a", href=True)
             ]
 

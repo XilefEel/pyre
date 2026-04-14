@@ -1,3 +1,4 @@
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -7,7 +8,7 @@ from routes.users import router as users_router
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     create_tables()
     yield
 
@@ -22,5 +23,5 @@ app.include_router(users_router)
 
 
 @app.get("/health")
-def health():
+def health() -> dict[str, str]:
     return {"status": "ok", "project": "{project_name}"}
