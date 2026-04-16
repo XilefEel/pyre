@@ -10,6 +10,8 @@ def main() -> None:
     match find_user(42):
         case Ok(user):
             print(f"Found: {user}")
+        case Err(AppError.INVALID_INPUT):
+            print("Invalid user id")
         case Err(AppError.NOT_FOUND):
             print("User not found")
         case Err(e):
